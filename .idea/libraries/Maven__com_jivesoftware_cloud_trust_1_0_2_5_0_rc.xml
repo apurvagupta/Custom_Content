@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.jivesoftware:cloud-trust:1.0-2.5.0.rc">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jivesoftware/cloud-trust/1.0-2.5.0.rc/cloud-trust-1.0-2.5.0.rc.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jivesoftware/cloud-trust/1.0-2.5.0.rc/cloud-trust-1.0-2.5.0.rc-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jivesoftware/cloud-trust/1.0-2.5.0.rc/cloud-trust-1.0-2.5.0.rc-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

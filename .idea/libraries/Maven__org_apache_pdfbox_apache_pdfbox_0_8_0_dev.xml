@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.apache.pdfbox:apache-pdfbox:0.8.0-dev">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/pdfbox/apache-pdfbox/0.8.0-dev/apache-pdfbox-0.8.0-dev.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/pdfbox/apache-pdfbox/0.8.0-dev/apache-pdfbox-0.8.0-dev-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/pdfbox/apache-pdfbox/0.8.0-dev/apache-pdfbox-0.8.0-dev-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

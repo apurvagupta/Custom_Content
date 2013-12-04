@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:cxf="http://cxf.apache.org/core"
+       xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd"
+       default-autowire="no">
+
+    <bean id="memoBeanRowMapper" class="com.jivesoftware.community.ext.memo.dao.MemoBeanRowMapper" />
+    
+    <bean id="memoCache" parent="cacheBean" depends-on="cacheFactoryManager">
+        <constructor-arg value="Memos" />
+    </bean>
+    
+    <bean id="memoCommentableTypeInfoProvider" class="com.jivesoftware.community.ext.memo.provider.MemoCommentableTypeInfoProvider" />
+
+    <bean id="memoContainableTypeInfoProvider" class="com.jivesoftware.community.ext.memo.provider.MemoContainableTypeInfoProvider" >
+        <property name="jiveObjectLoader" ref="jiveObjectLoaderImpl" />
+        <property name="entitlementCheckProvider" ref="memoEntitlementCheckProvider" />
+    </bean>
+    
+    <bean id="memoContainableTypeManager" class="com.jivesoftware.community.ext.memo.provider.MemoContainableTypeManager" >
+        <property name="memoManager" ref="memoManager" />
+    </bean>
+    
+    <bean id="memoContainerContentInfoProvider" class="com.jivesoftware.community.ext.memo.provider.MemoContainerContentInfoProvider" />
+    
+    <bean id="memoContentNotificationProvider" class="com.jivesoftware.community.ext.memo.provider.MemoContentNotificationProvider" />
+    <bean id="memoContentTypeInfoProvider" class="com.jivesoftware.community.ext.memo.provider.MemoContentObjectTypeInfoProvider" >
+        <property name="entitlementCheckProvider" ref="memoEntitlementCheckProvider" />
+        <property name="userProfileInfoProvider" ref="memoUserProfileInfoProvider" />
+        <property name="memoObjectTypeProvider" ref="memoObjectTypeProvider" />
+    </bean>
+    
+    <bean id="memoContentTypePlugin" class="com.jivesoftware.community.ext.memo.plugin.MemoContentTypePlugin" />
+    
+    <bean id="memoConverter" class="com.jivesoftware.community.ext.memo.impl.MemoConverter">
+        <property name="containerManager" ref="jiveContainerManagerImpl" />
+        <property name="objectTypeProvider" ref="memoObjectTypeProvider" />
+        <property name="renderCacheManager" ref="renderCacheManager" />
+        <property name="userManager" ref="userManagerImpl" />
+        <property name="viewCountProvider" ref="memoViewCountProvider" />
+        <property name="imageHelper" ref="memoImageHelper" />
+    </bean>
+    
+    <bean id="memoDao" class="com.jivesoftware.community.ext.memo.dao.MemoDaoImpl">
+        <property name="dataSource">
+            <util:property-path path="dataSourceFactory.dataSource" />
+        </property>
+        <property name="rowMapper" ref="memoBeanRowMapper" />
+        <property name="sequenceProvider" ref="memoSequenceProvider" />
+    </bean>
+    
+    <bean id="memoEntitlementCheckProvider" class="com.jivesoftware.community.ext.memo.provider.MemoEntitlementCheckProvider" parent="baseEntitlementProvider">
+        <property name="memoObjectTypeProvider" ref="memoObjectTypeProvider" />
+    </bean>
+
+    <bean id="memoFilteredContentProvider" class="com.jivesoftware.community.ext.memo.provider.MemoFilteredContentProvider" >
+        <property name="memoObjectTypeProvider" ref="memoObjectTypeProvider" />
+        <property name="communityManager" ref="communityManagerImpl" />
+    </bean>
+    <bean id="memoGenericTaggableTypeInfoProvider" class="com.jivesoftware.community.ext.memo.provider.MemoGenericTaggableTypeInfoProvider" />
+    <bean id="memoIconGenerator" class="com.jivesoftware.community.ext.memo.provider.MemoIconGenerator" />
+    
+    <bean id="memoImageHelper" class="com.jivesoftware.community.impl.MemoImageHelper" >
+        <property name="imageCache" ref="imageCache" />
+        <property name="imageDao" ref="imageDAO" />
+    </bean>
+    <bean id="memoIndexInfoProvider" class="com.jivesoftware.community.ext.memo.provider.MemoIndexInfoProvider">
+        <property name="dataSource" ref="searchDataSource" />
+        <property name="memoManager" ref="memoManagerImpl" />
+        <property name="memoObjectTypeProvider" ref="memoObjectTypeProvider" />
+        <property name="tagManager" ref="tagManager" />
+    </bean>
+    <bean id="memoLinkProvider" class="com.jivesoftware.community.ext.memo.provider.MemoLinkProvider" />
+    
+    <bean id="memoManager" name="memoManagerProxy" class="com.jivesoftware.community.ext.memo.proxy.MemoManagerProxy" >
+        <property name="authProvider" ref="authenticationProvider" />
+        <property name="containerManager" ref="jiveContainerManager" />
+        <property name="delegate" ref="memoManagerImpl" />
+        <property name="entitlementCheckProvider" ref="memoEntitlementCheckProvider" />
+        <property name="entitlementTypeProvider" ref="entitlementTypeProviderImpl" />
+    </bean>
+
+    <bean id="memoManagerImpl" class="com.jivesoftware.community.ext.memo.impl.MemoManagerImpl">
+        <property name="containerManager" ref="jiveContainerManager" />
+        <property name="memoCache" ref="memoCache" />
+        <property name="memoConverter" ref="memoConverter" />
+        <property name="memoDao" ref="memoDao" />
+        <property name="queryCacheManager" ref="queryCacheManagerImpl" />
+        <property name="eventDispatcher" ref="jiveEventDispatcher" />
+        <property name="interceptorManager" ref="interceptorManagerImpl"/>
+        <property name="renderCacheManager" ref="renderCacheManager" />
+        <property name="authenticationProvider" ref="authenticationProvider"/>
+        <property name="communityManager" ref="communityManagerImpl" />
+        <property name="imageHelper" ref="memoImageHelper" />
+        <property name="tagManager" ref="tagManager" />
+    </bean>
+
+    <bean id="memoModerationStrategy" class="com.jivesoftware.community.ext.memo.provider.MemoModerationStrategy" parent="defaultModerationStrategy" >
+        <property name="memoManager" ref="memoManagerImpl" />
+    </bean>
+
+    <bean id="memoModerationUIProvider" class="com.jivesoftware.community.ext.memo.provider.MemoModerationUIProvider">
+        <property name="memoObjectTypeProvider" ref="memoObjectTypeProvider" />
+        <property name="objectFactory" ref="memoObjectFactory" />
+    </bean>
+	
+	<bean id="memoMoveContentProvider" class="com.jivesoftware.community.ext.memo.provider.MemoMoveContentProvider">
+        <property name="memoManager" ref="memoManager" />
+    </bean>
+    <bean id="memoObjectFactory" class="com.jivesoftware.community.ext.memo.MemoObjectFactory" >
+        <property name="objectFactory" ref="memoManagerImpl" />
+        <property name="proxiedObjectFactory" ref="memoManager" />
+        <property name="proxyFactory" ref="memoManager" />
+    </bean>
+
+    <bean id="memoObjectType" class="com.jivesoftware.community.ext.memo.MemoObjectType" >
+        <property name="jiveObjectFactory" ref="memoObjectFactory" />
+        <property name="containableTypeInfoProvider" ref="memoContainableTypeInfoProvider" />
+        <property name="containableTypeManager" ref="memoContainableTypeManager" />
+        <property name="typeUiProvider" ref="memoTypeUIProvider" />
+        <property name="userBarProvider" ref="memoUserBarProvider" />
+        <property name="contentObjectTypeInfoProvider" ref="memoContentTypeInfoProvider" />
+        <property name="contentNotificationProvider" ref="memoContentNotificationProvider" />
+        <property name="filteredContentProvider" ref="memoFilteredContentProvider" />
+        <property name="genericTaggableTypeInfoProvider" ref="memoGenericTaggableTypeInfoProvider" />
+        <property name="taggableTypeInfoProvider" ref="memoTaggableTypeInfoProvider" />
+        <property name="recentContentInfoProvider" ref="memoRecentContentInfoProvider" />
+        <property name="indexInfoProvider" ref="memoIndexInfoProvider" />
+        <property name="moderationStrategy" ref="memoModerationStrategy" />
+        <property name="moderationUIProvider" ref="memoModerationUIProvider" />
+        <property name="moveContentProvider" ref="memoMoveContentProvider" />
+        <property name="recentActivityInfoProvider" ref="memoRecentActivityInfoProvider" />
+        <property name="recentHistoryProvider" ref="memoRecentHistoryProvider" />
+        <property name="commentableTypeInfoProvider" ref="memoCommentableTypeInfoProvider" />
+        <property name="favoriteInfoProvider" ref="jiveContentObjectFavoriteInfoProvider" />
+        <property name="watchInfoProvider" ref="memoWatchInfoProvider" />
+        <property name="viewCountSupport" ref="memoViewCountSupport" />
+        <property name="entitlementCheckProvider" ref="memoEntitlementCheckProvider" />    
+    </bean>
+
+    <bean id="memoObjectTypeProvider" class="com.jivesoftware.community.lifecycle.spring.impl.BeanProviderImpl">
+        <property name="objectTypeBean" value="memoObjectType"/>
+    </bean>
+
+    <bean id="memoParamMapObjectFactory" class="com.jivesoftware.community.ext.memo.provider.MemoParamMapObjectFactory" >
+        <property name="memoManager" ref="memoManagerImpl" />
+    </bean>
+
+    <bean id="memoProxy" class="com.jivesoftware.community.ext.memo.proxy.MemoProxy" scope="prototype" >
+        <property name="entitlementCheckProvider" ref="memoEntitlementCheckProvider" />
+    </bean>
+    
+    <bean id="memoRecentActivityInfoProvider" class="com.jivesoftware.community.ext.memo.provider.MemoRecentActivityInfoProvider" />
+    <bean id="memoRecentContentInfoProvider" class="com.jivesoftware.community.ext.memo.provider.MemoRecentContentInfoProvider">
+        <property name="memoDao" ref="memoDao" />
+    </bean>
+    <bean id="memoRecentHistoryProvider" class="com.jivesoftware.community.ext.memo.provider.MemoRecentHistoryProvider" >
+        <property name="memoObjectTypeProvider" ref="memoObjectTypeProvider" />
+    </bean>
+    <bean id="memoSequenceProvider" class="com.jivesoftware.base.database.dao.impl.SequenceProviderImpl">
+        <constructor-arg>
+            <util:constant static-field="com.jivesoftware.community.ext.memo.MemoObjectType.MEMO_TYPE_ID"/>
+        </constructor-arg>
+        <constructor-arg ref="sequenceDAO"/>
+    </bean>
+    
+    <bean id="memoTaggableTypeInfoProvider" class="com.jivesoftware.community.ext.memo.provider.MemoTaggableTypeInfoProvider" >
+        <property name="memoObjectTypeProvider" ref="memoObjectTypeProvider" />
+    </bean>
+    <bean id="memoTypeUIProvider" class="com.jivesoftware.community.ext.memo.provider.MemoTypeUIProvider">
+        <property name="iconGenerator" ref="memoIconGenerator" />
+        <property name="jiveObjectURLFactory" ref="memoURLFactory" />
+        <property name="linkProvider" ref="memoLinkProvider" />
+        <property name="macroNames">
+            <list>
+                <value>memo</value>
+            </list>
+        </property>
+        <property name="paramMapObjectFactories">
+            <map>
+                <entry key="memo" value-ref="memoParamMapObjectFactory" />
+            </map>
+        </property>
+        <property name="memoContainerContentInfoProvider" ref="memoContainerContentInfoProvider" />
+    </bean>
+    
+    <bean id="memoURLFactory" class="com.jivesoftware.community.ext.memo.provider.MemoURLFactory" />
+    
+    <bean id="memoUserBarProvider" class="com.jivesoftware.community.ext.memo.provider.MemoUserBarProvider" >
+        <property name="authProvider" ref="authenticationProvider" />
+        <property name="memoObjectTypeProvider" ref="memoObjectTypeProvider" />
+    </bean>
+    
+    <bean id="memoUserProfileInfoProvider" class="com.jivesoftware.community.ext.memo.provider.MemoUserProfileInfoProvider" />
+    
+    <bean id="memoViewCountProvider" class="com.jivesoftware.community.ext.memo.impl.ViewCountProvider">
+        <property name="viewCountManager" ref="viewCountManager" />
+    </bean>
+
+    <bean id="memoViewCountCache" parent="cacheBean" depends-on="cacheFactoryManager">
+        <constructor-arg value="Memo View Count Cache" />
+    </bean>
+
+    <bean id="memoViewCountSupport" class="com.jivesoftware.community.ext.memo.provider.MemoViewCountSupport" >
+        <property name="countCache" ref="memoViewCountCache"/>
+        <property name="eventDispatcher" ref="jiveEventDispatcher"/>
+    </bean>
+    
+    <bean id="memoWatchInfoProvider" class="com.jivesoftware.community.ext.memo.provider.MemoWatchInfoProvider" >
+        <property name="entitlementCheckProvider" ref="memoEntitlementCheckProvider" />
+    </bean>
+    
+    <bean id="dwrMemoWatchesBean" class="com.jivesoftware.community.ext.memo.action.MemoWatchesAction">
+        <property name="memoManager" ref="memoManager" />
+        <property name="watchManager" ref="watchManager" />
+        <dwr:remote javascript="MemoWatches">
+            <dwr:exclude method="setWatchManager"/>
+            <dwr:exclude method="setMemoManager"/>
+            <dwr:exclude method="setGeoMapManager"/>
+        </dwr:remote>
+    </bean>
+</beans>

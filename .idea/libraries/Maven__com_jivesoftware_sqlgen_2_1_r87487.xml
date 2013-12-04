@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.jivesoftware:sqlgen:2.1-r87487">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jivesoftware/sqlgen/2.1-r87487/sqlgen-2.1-r87487.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jivesoftware/sqlgen/2.1-r87487/sqlgen-2.1-r87487-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jivesoftware/sqlgen/2.1-r87487/sqlgen-2.1-r87487-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,39 @@
+<cache-config>
+    <cache-mapping>
+        <cache-name>Memos</cache-name>
+        <scheme-name>default-near</scheme-name>
+        <init-params>
+            <init-param>
+                <param-name>back-size-high</param-name>
+                <param-value>524288</param-value>
+            </init-param>
+            <init-param>
+                <param-name>back-expiry</param-name>
+                <param-value>6h</param-value>
+            </init-param>
+            <init-param>
+                <param-name>back-size-low</param-name>
+                <param-value>471860</param-value>
+            </init-param>
+        </init-params>
+    </cache-mapping>
+    <cache-mapping>
+    <cache-name>Memo View Count Cache</cache-name>
+        <scheme-name>default-near</scheme-name>
+        <init-params>
+            <init-param>
+                <param-name>back-size-high</param-name>
+                <param-value>131072</param-value>
+            </init-param>
+            <init-param>
+                <param-name>back-expiry</param-name>
+                <param-value>6h</param-value>
+            </init-param>
+            <init-param>
+                <param-name>back-size-low</param-name>
+                <param-value>117964</param-value>
+            </init-param>
+        </init-params>
+    </cache-mapping>
+</cache-config>
+

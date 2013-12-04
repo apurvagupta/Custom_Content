@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.jivesoftware:batik:1.7+r608262-2.5.0.rc">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jivesoftware/batik/1.7+r608262-2.5.0.rc/batik-1.7+r608262-2.5.0.rc.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jivesoftware/batik/1.7+r608262-2.5.0.rc/batik-1.7+r608262-2.5.0.rc-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jivesoftware/batik/1.7+r608262-2.5.0.rc/batik-1.7+r608262-2.5.0.rc-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

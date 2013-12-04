@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.jivesoftware:jmdns:1.0RCwithchanges">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jivesoftware/jmdns/1.0RCwithchanges/jmdns-1.0RCwithchanges.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jivesoftware/jmdns/1.0RCwithchanges/jmdns-1.0RCwithchanges-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jivesoftware/jmdns/1.0RCwithchanges/jmdns-1.0RCwithchanges-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

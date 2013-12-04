@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.jivesoftware:jive-token-replacement-connection:1.0-J">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jivesoftware/jive-token-replacement-connection/1.0-J/jive-token-replacement-connection-1.0-J.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jivesoftware/jive-token-replacement-connection/1.0-J/jive-token-replacement-connection-1.0-J-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jivesoftware/jive-token-replacement-connection/1.0-J/jive-token-replacement-connection-1.0-J-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.jivesoftware:dwr:2.0.5-2.5.6">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jivesoftware/dwr/2.0.5-2.5.6/dwr-2.0.5-2.5.6.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jivesoftware/dwr/2.0.5-2.5.6/dwr-2.0.5-2.5.6-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jivesoftware/dwr/2.0.5-2.5.6/dwr-2.0.5-2.5.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~
+  ~  $Revision$
+  ~  $Date$
+  ~
+  ~  Copyright (C) 1999-${YEAR} Jive Software. All rights reserved.
+  ~
+  ~  This software is the proprietary information of Jive Software. Use is subject to license terms.
+  -->
+
+<sbs-ext>
+    <objectType beanId="memoObjectType">
+        <entitlements provider="com.jivesoftware.community.ext.memo.provider.MemoEntitlementCheckProvider" parent="baseEntitlementProvider">
+            <level name="Create"
+                   description="Allows users to create new memos, comment on existing memos and view all memos">
+                <associate level="Administer"/>
+                <associate level="Moderate"/>
+                <associate level="Create"/>
+                <mask name="Create"/>
+                <mask name="Comment/reply"/>
+                <mask name="Read"/>
+                <mask name="Insert image"/>
+            </level>
+            <level name="Contribute" description="Allows users to comment on and view memos">
+                <associate level="Contribute"/>
+                <mask name="Comment/reply"/>
+                <mask name="Read"/>
+            </level>
+            <level name="View" description="Allows users to view memos">
+                <associate level="View"/>
+                <mask name="Read"/>
+            </level>
+            <mask name="Create"/>
+            <mask name="Comment/reply"/>
+            <mask name="Read"/>
+            <mask name="Insert image"/>
+        </entitlements>
+    </objectType>
+</sbs-ext>
